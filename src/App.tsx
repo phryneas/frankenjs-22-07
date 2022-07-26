@@ -1,25 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./reducers/rootReducer";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
+import { decrement, increment } from "./actions/counter";
+import { getUsersThunk } from "./reducers/api";
 
 function App() {
+  const value = useSelector((state: RootState) => state.counter.value);
+  const status = useSelector((state: RootState) => state.api.status);
+  const data = useSelector((state: RootState) => state.api.data);
+  const error = useSelector((state: RootState) => state.api.error);
+
+  const dispatch = useDispatch() as ThunkDispatch<RootState, {}, AnyAction>;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <section>
+        <h1>Counter</h1>
+        {value}
+        <br />
+        <button onClick={() => dispatch(increment(1))}>+1</button>
+        <br />
+        <button onClick={() => dispatch(decrement(5))}>-5</button>
+      </section>
+      <section>
+        <h1>Server Data</h1>
+        status: {status}
+        <br />
+        data: {JSON.stringify(data)}
+        <br />
+        error: {JSON.stringify(error)}
+        <br />
+        <button onClick={() => dispatch(getUsersThunk())}>get users</button>
+      </section>
+    </>
   );
 }
 
