@@ -26,13 +26,16 @@ function App() {
       </section>
       <section>
         <h1>Server Data</h1>
-        status: {status}
-        <br />
-        data: {JSON.stringify(data)}
-        <br />
-        error: {JSON.stringify(error)}
-        <br />
-        <button onClick={() => dispatch(getUsersThunk())}>get users</button>
+        <pre>
+          status: {status}
+        </pre>
+        <pre> 
+          data: {JSON.stringify(data, null, 4)}
+        </pre>
+        <pre>
+          error: {JSON.stringify(error)}
+        </pre>
+        <button onClick={() => dispatch(getUsersThunk())}>Get Users</button>
       </section>
     </>
   );
