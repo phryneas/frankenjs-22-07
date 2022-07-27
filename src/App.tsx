@@ -3,14 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./reducers/rootReducer";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import { decrement, increment } from "./actions/counter";
-import { getUsersThunk } from "./reducers/api";
+import { decrement, increment } from "./reducers/counter";
+import {
+  getUsersThunk,
+  useGetUsersQuery,
+  useLazyGetUsersQuery,
+} from "./reducers/api";
 
 function App() {
   const value = useSelector((state: RootState) => state.counter.value);
   const status = useSelector((state: RootState) => state.api.status);
   const data = useSelector((state: RootState) => state.api.data);
   const error = useSelector((state: RootState) => state.api.error);
+
+  const result = useGetUsersQuery(undefined, { pollingInterval: 10000 });
 
   const dispatch = useDispatch() as ThunkDispatch<RootState, {}, AnyAction>;
 
@@ -33,6 +39,12 @@ function App() {
         error: {JSON.stringify(error)}
         <br />
         <button onClick={() => dispatch(getUsersThunk())}>get users</button>
+      </section>
+
+      <section>
+        <h1>Server Data</h1>
+        {JSON.stringify(result)}
+        <button onClick={() => trigger()}>get users</button>
       </section>
     </>
   );

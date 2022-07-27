@@ -1,10 +1,15 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import rootReducer from "../reducers/rootReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "../reducers/counter";
+import apiReducer from "../reducers/api";
+import { api } from "../reducers/api";
 
-const composeEnhancers =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
-);
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+    api: apiReducer,
+    [api.reducerPath]: api.reducer,
+  },
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware().concat(api.middleware);
+  },
+});
