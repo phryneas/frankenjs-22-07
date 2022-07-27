@@ -2,6 +2,12 @@
 
 see [WhoAmI](./whoami.md)
 
+# Live Coding results
+
+### [See the diff](https://github.com/phryneas/frankenjs-22-07/commit/96ac007bf74cf4db0a027087fd3827c1f0d50ba1)
+
+### [Browse the refactored code](https://github.com/phryneas/frankenjs-22-07/tree/refactor)
+
 # Links
 
 - [Why Redux Toolkit is How To Use Redux Today](https://redux.js.org/introduction/why-rtk-is-redux-today)
